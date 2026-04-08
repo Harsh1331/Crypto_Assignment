@@ -79,6 +79,11 @@
             "name": "AdaniPower",
             "balance": 1000.0,
             "zone": "Zone_B"
+        },
+        "e5f5676b3605493d": {
+            "name": "AdaniPower",
+            "balance": 1000.0,
+            "zone": "Zone_B"
         }
     },
     "users": {
