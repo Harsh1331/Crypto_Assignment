@@ -1,0 +1,123 @@
+{
+    "franchises": {
+        "9c8868ef03a1cfa9": {
+            "name": "TataPower",
+            "balance": 500.0,
+            "zone": "Zone_A"
+        },
+        "ea41b60d2fa883c1": {
+            "name": "TataPower",
+            "balance": 500.0,
+            "zone": "Zone_A"
+        },
+        "2c224f40bce2dda4": {
+            "name": "AdaniPower",
+            "balance": 1000.0,
+            "zone": "Zone_B"
+        },
+        "6fba232d1c3a0fd9": {
+            "name": "AdaniPower",
+            "balance": 1000.0,
+            "zone": "Zone_B"
+        },
+        "a9c03dfd9ba4db66": {
+            "name": "AdaniPower",
+            "balance": 1000.0,
+            "zone": "Zone_B"
+        },
+        "d91944eb2025cbaf": {
+            "name": "AdaniPower",
+            "balance": 1000.0,
+            "zone": "Zone_B"
+        },
+        "5cce904e6c3bbffe": {
+            "name": "AdaniPower",
+            "balance": 1000.0,
+            "zone": "Zone_B"
+        },
+        "a8a6869faa0bf6e0": {
+            "name": "AdaniPower",
+            "balance": 1000.0,
+            "zone": "Zone_B"
+        },
+        "1912b960b8dad9cc": {
+            "name": "AdaniPower",
+            "balance": 1000.0,
+            "zone": "Zone_B"
+        },
+        "3812cf493ddbf95f": {
+            "name": "AdaniPower",
+            "balance": 1000.0,
+            "zone": "Zone_B"
+        },
+        "bc35b9ff02e64027": {
+            "name": "AdaniPower",
+            "balance": 1000.0,
+            "zone": "Zone_B"
+        },
+        "6302364c52c71cba": {
+            "name": "AdaniPower",
+            "balance": 1025.0,
+            "zone": "Zone_B"
+        },
+        "9b31bc796f622816": {
+            "name": "AdaniPower",
+            "balance": 1025.0,
+            "zone": "Zone_B"
+        },
+        "400f23fecf4c868f": {
+            "name": "AdaniPower",
+            "balance": 1025.0,
+            "zone": "Zone_B"
+        },
+        "50a12051cfb81a65": {
+            "name": "AdaniPower",
+            "balance": 1025.0,
+            "zone": "Zone_B"
+        },
+        "7f84f7327d364059": {
+            "name": "AdaniPower",
+            "balance": 1000.0,
+            "zone": "Zone_B"
+        }
+    },
+    "users": {
+        "c22d36f05fca6b03": {
+            "uid": "11f3b64e80a6068f",
+            "name": "Alice",
+            "pin": "1234",
+            "balance": 0.0,
+            "zone": "Zone_A"
+        },
+        "5f3ec94ab836a81f": {
+            "uid": "913d16893fb99f2d",
+            "name": "Alice",
+            "pin": "1234",
+            "balance": 100.0,
+            "zone": "Zone_A"
+        }
+    },
+    "blockchain_ledger": [
+        {
+            "hash": "5e63ef0904649e97",
+            "previous_hash": "0000000000000000000000000000000000000000000000000000000000000000",
+            "timestamp": "1775065787.206951",
+            "amount": 25.0,
+            "dispute_flag": false
+        },
+        {
+            "hash": "b55529a729ac5c01",
+            "previous_hash": "5e63ef0904649e97",
+            "timestamp": "1775065802.8664963",
+            "amount": 25.0,
+            "dispute_flag": false
+        },
+        {
+            "hash": "7bd7bf8f3035038d",
+            "previous_hash": "b55529a729ac5c01",
+            "timestamp": "1775065817.0737052",
+            "amount": 25.0,
+            "dispute_flag": false
+        }
+    ]
+}
