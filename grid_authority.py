@@ -39,6 +39,13 @@ class GridAuthority:
             print("No existing data found. Starting fresh.")
             self.save_data()
 
+    def clear_data(self):
+        self.franchises = {}
+        self.users = {}
+        self.blockchain_ledger = []
+        self.save_data()
+        print("All data cleared.")
+
     def register_franchise(self, name, zone_code, password, initial_bal):
         timestamp = str(time.time())
         seed = f"{name}{timestamp}{password}"
@@ -123,3 +130,11 @@ class GridAuthority:
 
         self.blockchain_ledger.append(new_block)
         #self.save_data()
+
+    def report_hw_failure(self, vmid, fid, amount):
+        print(f"Hardware failure reported for VMID {vmid} at Franchise {fid} for amount {amount}. Initiating refund...")
+        self.users[vmid]["balance"] += amount
+        self.franchises[fid]["balance"] -= amount
+        self.create_block(uid=self.users[vmid]["uid"], fid=fid, amount=amount, dispute_flag=True)
+        self.save_data()
+        return f"Refund processed for user {self.users[vmid]['name']} for amount {amount} units from franchise {self.franchises[fid]['name']}."
