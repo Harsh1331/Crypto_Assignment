@@ -1,11 +1,5 @@
 {
-    "franchises": {
-        "8e0f2f4c293a7358": {
-            "name": "tata power",
-            "balance": -100.0,
-            "zone": "a"
-        }
-    },
+    "franchises": {},
     "users": {},
     "blockchain_ledger": []
 }

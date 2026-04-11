@@ -6,7 +6,6 @@ class ChargingKiosk:
     def __init__(self, franchise_id, grid_network):
         self.franchise_id = franchise_id
         self.grid = grid_network
-        #self.kiosk_key = os.urandom(16)  # Unique key for the kiosk
         self.kiosk_key = b"1234567890abcdef"  # Fixed key for testing
 
     def generate_qr_code(self):
