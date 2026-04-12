@@ -1,5 +1,46 @@
 {
-    "franchises": {},
-    "users": {},
-    "blockchain_ledger": []
+    "franchises": {
+        "90e0363f68bb0628": {
+            "name": "bdfg",
+            "balance": 2434.0,
+            "zone": "A2"
+        },
+        "26f65cf072756f6e": {
+            "name": "big yahu",
+            "balance": 9800.0,
+            "zone": "C3"
+        }
+    },
+    "users": {
+        "3e06492d43151c90": {
+            "uid": "cdd000b2c64a38f4",
+            "name": "nichu",
+            "pin": "1234",
+            "balance": 4200.0,
+            "zone": "B3"
+        }
+    },
+    "blockchain_ledger": [
+        {
+            "hash": "3c2bb534d323288c",
+            "previous_hash": "0000000000000000000000000000000000000000000000000000000000000000",
+            "timestamp": "1775973966.7731552",
+            "amount": 200.0,
+            "dispute_flag": false
+        },
+        {
+            "hash": "9e1bce5181b7dfef",
+            "previous_hash": "3c2bb534d323288c",
+            "timestamp": "1775974181.0221272",
+            "amount": 1000.0,
+            "dispute_flag": false
+        },
+        {
+            "hash": "09d4e26fc67b6d57",
+            "previous_hash": "9e1bce5181b7dfef",
+            "timestamp": "1775975291.066709",
+            "amount": 200.0,
+            "dispute_flag": true
+        }
+    ]
 }

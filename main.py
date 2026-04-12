@@ -40,20 +40,22 @@ def main():
             name = input("Enter franchise name: ")
             zone_code = input("Enter zone code: ")
             password = input("Enter password: ")
-            initial_bal = float(input("Enter initial balance: "))
+            initial_bal = input("Enter initial balance: ")
             fid = grid.register_franchise(name, zone_code, password, initial_bal)
-            print(f"Franchise registered with ID: {fid} and balance: {initial_bal}")
+            if fid != None:
+                print(f"Franchise registered with ID: {fid} and balance: {initial_bal}")
 
         elif choice == '2':
             print_header("Registering User")
             name = input("Enter user name: ")
             zone_code = input("Enter zone code: ")
             password = input("Enter password: ")
-            initial_bal = float(input("Enter initial balance: "))
+            initial_bal = input("Enter initial balance: ")
             pin = input("Set a 4-digit PIN: ")
             phone_number = input("Enter phone number: ")
             vmid = grid.register_user(name, zone_code, password, initial_bal, pin, phone_number)
-            print(f"User registered with VMID: {vmid}")
+            if vmid != None:
+                print(f"User registered with VMID: {vmid}")
 
         elif choice == '3':
             fid = input("Enter franchise ID to activate kiosk: ")
@@ -73,7 +75,7 @@ def main():
                     print("Please activate a charging kiosk first.")
                     continue
                 pin = input("Enter your PIN: ")
-                amount = float(input("Enter amount to charge (units): "))
+                amount = input("Enter amount to charge (units): ")
                 result = grid.process_transaction(scannable_qr, vmid, pin, amount)
                 print(f"Transaction result: {result}")
                 scannable_qr = None  # Invalidate QR code after one use
@@ -113,7 +115,8 @@ def main():
 
         elif choice == '7':
             vmid = input("Enter the VMID of the user to delete: ")
-            grid.delete_user(vmid)
+            pin = input("Enter your pin: ")
+            grid.delete_user(vmid, pin)
 
         elif choice == '8':
             grid.clear_data()
@@ -121,6 +124,14 @@ def main():
         elif choice == '9':
             print("Exiting...")
             break
+
+        elif choice == 'hwf':
+            print_header("Simulating Hardware Failure")
+            vmid = input("Enter your VMID to simulate hardware failure: ")
+            fid = input("Enter franchise ID to simulate hardware failure: ")
+            amount = input("Enter amount to simulate hardware failure for: ")
+            result = grid.report_hw_failure(vmid, fid, amount)
+            print(f"Hardware failure simulation result: {result}")            
 
         else:
             print("Invalid choice. Please try again.")

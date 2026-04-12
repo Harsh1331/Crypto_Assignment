@@ -53,9 +53,15 @@ class GridAuthority:
         if name in [f["name"] for f in self.franchises.values()] and zone_code in [f["zone"] for f in self.franchises.values()]:
             print("Franchise name already exists in the specified zone. Please choose a different name.")
             return None
-        if initial_bal < 0 or type(initial_bal) not in [int, float]:
-            print("Initial balance cannot be negative or non-numeric.")
-            return None
+        try:
+            initial_bal = float(initial_bal)
+        except ValueError:
+            if type(initial_bal) not in [int, float]:
+                print("Initial balance must be a number.")
+                return None
+            if initial_bal < 0:
+                print("Initial balance cannot be negative or non-numeric.")
+                return None
         timestamp = str(time.time())
         seed = f"{name}{timestamp}{password}"
         fid = generate_hex(seed)
@@ -74,9 +80,15 @@ class GridAuthority:
         if name in [u["name"] for u in self.users.values()] and zone_code in [u["zone"] for u in self.users.values()]:
             print("User name already exists in the specified zone. Please choose a different name.")
             return None
-        if initial_bal < 0 or type(initial_bal) not in [int, float]:
-            print("Initial balance cannot be negative or non-numeric.")
-            return None
+        try:
+            initial_bal = float(initial_bal)
+        except ValueError:
+            if type(initial_bal) not in [int, float]:
+                print("Initial balance must be a number.")
+                return None
+            if initial_bal < 0:
+                print("Initial balance cannot be negative or non-numeric.")
+                return None
         timestamp = str(time.time())
         seed = f"{name}{timestamp}{password}"
         uid = generate_hex(seed)
@@ -92,11 +104,13 @@ class GridAuthority:
         self.save_data()
         return vmid
     
-    def delete_user(self, vmid):
-        if vmid in self.users:
+    def delete_user(self, vmid, pin):
+        if vmid in self.users and self.users[vmid]["pin"] == pin:
             del self.users[vmid]
             self.save_data()
             print(f"User with VMID {vmid} has been deleted.")
+        else:
+            print("Invalid VMID or PIN.")
 
     def view_balance(self, vmid):
         if vmid in self.users:
@@ -109,6 +123,15 @@ class GridAuthority:
         nonce = bytes.fromhex(qr_data["nonce"])
         ciphertext = bytes.fromhex(qr_data["ciphertext"])
         kiosk_key = b"1234567890abcdef"  # This should match the key used by the kiosk
+        try:
+            amount = float(amount)
+        except ValueError:
+            if type(amount) not in [int, float]:
+                print("Amount must be a number.")
+                return None
+            if amount < 0:
+                print("Amount cannot be negative or non-numeric.")
+                return None
 
         try:
             plaintext = ascon.decrypt(kiosk_key, nonce, b"", ciphertext, variant="Ascon-128")
@@ -161,6 +184,19 @@ class GridAuthority:
         #self.save_data()
 
     def report_hw_failure(self, vmid, fid, amount):
+        if vmid not in self.users:
+            return "User not found."
+        if fid not in self.franchises:
+            return "Franchise not found."
+        try:
+            amount = float(amount)
+        except ValueError:
+            if type(amount) not in [int, float]:
+                print("Amount must be a number.")
+                return None
+            if amount < 0:
+                print("Amount cannot be negative or non-numeric.")
+                return None
         print(f"Hardware failure reported for VMID {vmid} at Franchise {fid} for amount {amount}. Initiating refund...")
         self.users[vmid]["balance"] += amount
         self.franchises[fid]["balance"] -= amount
