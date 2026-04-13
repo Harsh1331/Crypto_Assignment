@@ -8,7 +8,7 @@ class QuantumAttacker:
     def quantum_period(self, a, N):
         r = 1
         while True:
-            if (a**r) % N == 1:
+            if pow(a, r, N) == 1:
                 return r
             r += 1
 
@@ -27,13 +27,13 @@ class QuantumAttacker:
             return self.shors_algorithm(N)
         
         half_r = r // 2
-        guess1 = math.gcd(pow(a, half_r) - 1, N)
-        guess2 = math.gcd(pow(a, half_r) + 1, N)
+        guess1 = math.gcd(pow(a, half_r, N) - 1, N)
+        guess2 = math.gcd(pow(a, half_r, N) + 1, N)
 
         factors = []
-        if guess1 > 1 and guess1 < N:
+        if 1 < guess1 < N:
             factors.append(guess1)
-        if guess2 > 1 and guess2 < N:
+        if 1 < guess2 < N:
             factors.append(guess2)
 
         if len(factors) == 0:
