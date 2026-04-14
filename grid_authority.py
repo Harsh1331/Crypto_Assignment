@@ -16,13 +16,17 @@ class GridAuthority:
         self.franchises = {}
         self.users = {}
         self.blockchain_ledger = []
+        self.kiosks = {}
+        self.used_nonces = []
         self.load_data()
 
     def save_data(self):
         data = {
             "franchises": self.franchises,
             "users": self.users,
-            "blockchain_ledger": self.blockchain_ledger
+            "blockchain_ledger": self.blockchain_ledger,
+            "kiosks": self.kiosks,
+            "used_nonces": self.used_nonces
         }
         with open(self.data_file, 'w') as f:
             json.dump(data, f, indent=4)
@@ -34,6 +38,8 @@ class GridAuthority:
                 self.franchises = data.get("franchises", {})
                 self.users = data.get("users", {})
                 self.blockchain_ledger = data.get("blockchain_ledger", [])
+                self.kiosks = data.get("kiosks", {})
+                self.used_nonces = data.get("used_nonces", [])
                 print("Data loaded successfully.")
         else:
             print("No existing data found. Starting fresh.")
@@ -43,6 +49,8 @@ class GridAuthority:
         self.franchises = {}
         self.users = {}
         self.blockchain_ledger = []
+        self.kiosks = {}
+        self.used_nonces = []
         self.save_data()
         print("All data cleared.")
 
@@ -104,6 +112,24 @@ class GridAuthority:
         self.save_data()
         return vmid
     
+    def register_kiosk(self, kiosk_id, fid):
+        if kiosk_id in self.kiosks:
+            return "Kiosk ID already exists. Please choose a different ID."
+        if fid not in self.franchises:
+            return "Franchise not found. Could not register kiosk."
+        kiosk_key = os.urandom(16).hex()
+        self.kiosks[kiosk_id] = {
+            "fid": fid,
+            "key": kiosk_key
+        }
+        self.save_data()
+        return f"Kiosk registered successfully with ID {kiosk_id}."
+    
+    def kiosk_secure_boot(self, kiosk_id):
+        if kiosk_id not in self.kiosks:
+            return None
+        return self.kiosks[kiosk_id]["key"], self.kiosks[kiosk_id]["fid"]
+
     def delete_user(self, vmid, pin):
         if vmid in self.users and self.users[vmid]["pin"] == pin:
             del self.users[vmid]
@@ -120,9 +146,15 @@ class GridAuthority:
             print("User not found.")
     
     def process_transaction(self, qr_data, vmid, pin, amount):
+        kiosk_id = qr_data.get("kiosk_id")
+        nonce_hex = qr_data["nonce"]
+        if nonce_hex in self.used_nonces:
+            return "This QR code has already been used."
         nonce = bytes.fromhex(qr_data["nonce"])
         ciphertext = bytes.fromhex(qr_data["ciphertext"])
-        kiosk_key = b"1234567890abcdef"  # This should match the key used by the kiosk
+        if kiosk_id not in self.kiosks:
+            return "Invalid kiosk ID/ QR code data."
+        kiosk_key = bytes.fromhex(self.kiosks.get(kiosk_id, {}).get("key"))
         try:
             amount = float(amount)
         except ValueError:
@@ -159,6 +191,7 @@ class GridAuthority:
         self.franchises[fid]["balance"] += amount
 
         self.create_block(uid=self.users[vmid]["uid"], fid=fid, amount=amount, dispute_flag=False)
+        self.used_nonces.append(nonce_hex)
         self.save_data()
         return f"User {self.users[vmid]['name']} charged {amount} units at franchise {self.franchises[fid]['name']}."
     

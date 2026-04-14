@@ -1,46 +1,63 @@
 {
     "franchises": {
-        "90e0363f68bb0628": {
-            "name": "bdfg",
-            "balance": 2434.0,
-            "zone": "A2"
-        },
-        "26f65cf072756f6e": {
-            "name": "big yahu",
-            "balance": 9800.0,
-            "zone": "C3"
+        "df4c3093c65752cb": {
+            "name": "Big yahu",
+            "balance": 10070.0,
+            "zone": "A3"
         }
     },
     "users": {
-        "3e06492d43151c90": {
-            "uid": "cdd000b2c64a38f4",
+        "472cb6661e5538ec": {
+            "uid": "58a3781f232f74f8",
             "name": "nichu",
             "pin": "1234",
-            "balance": 4200.0,
-            "zone": "B3"
+            "balance": 4930.0,
+            "zone": "C2"
         }
     },
     "blockchain_ledger": [
         {
-            "hash": "3c2bb534d323288c",
+            "hash": "31749c65af686746",
             "previous_hash": "0000000000000000000000000000000000000000000000000000000000000000",
-            "timestamp": "1775973966.7731552",
-            "amount": 200.0,
+            "timestamp": "1776110552.4602425",
+            "amount": 100.0,
             "dispute_flag": false
         },
         {
-            "hash": "9e1bce5181b7dfef",
-            "previous_hash": "3c2bb534d323288c",
-            "timestamp": "1775974181.0221272",
-            "amount": 1000.0,
+            "hash": "61db15ecf48ca6c7",
+            "previous_hash": "31749c65af686746",
+            "timestamp": "1776110664.7444854",
+            "amount": 50.0,
             "dispute_flag": false
         },
         {
-            "hash": "09d4e26fc67b6d57",
-            "previous_hash": "9e1bce5181b7dfef",
-            "timestamp": "1775975291.066709",
+            "hash": "d48a623b5bd48a23",
+            "previous_hash": "61db15ecf48ca6c7",
+            "timestamp": "1776110703.5939474",
+            "amount": 120.0,
+            "dispute_flag": false
+        },
+        {
+            "hash": "08d942ed7e6f070d",
+            "previous_hash": "d48a623b5bd48a23",
+            "timestamp": "1776110743.5306897",
             "amount": 200.0,
             "dispute_flag": true
         }
+    ],
+    "kiosks": {
+        "kiosk1": {
+            "fid": "df4c3093c65752cb",
+            "key": "ba1c7d382425021f4d392183dc0f5777"
+        },
+        "kiosk2": {
+            "fid": "df4c3093c65752cb",
+            "key": "094f554dbd6a0901ceb24bffbdc1924e"
+        }
+    },
+    "used_nonces": [
+        "bc0c706749d6484182549e6e13353087",
+        "77a4a6170554a17c866f59b903984034",
+        "6a3b2e4cfeca8726c1e7ee407d342031"
     ]
 }

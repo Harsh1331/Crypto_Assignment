@@ -15,24 +15,19 @@ grid = grid_authority.GridAuthority()
 activate_kiosk = None
 scannable_qr = None
 
-# ideally each kiosk should run in its own thread and generate QR codes independently every set interval of time, but for simplicity we'll just generate a new QR code each time the user chooses to activate a kiosk in the menu. The QR code will be valid for one transaction.
-# while True:
-#     activate_kiosk = charging_kiosk.ChargingKiosk(fid, grid)
-#     qr_code = activate_kiosk.generate_qr_code()
-#     time.sleep(120)
-
 while True:
     print("\n")
     print_header("Main Menu")
     print("1. Register Franchise")
     print("2. Register User")
-    print("3. Activate Charging Kiosk")
-    print("4. Make a payment (simulate QR Code Scan) or View Balance")
-    print("5. View Blockchain Ledger")
-    print("6. Run Shor's Algorithm (Quantum Simulation)")
-    print("7. Delete User")
-    print("8. Clear All Data")
-    print("9. Exit")
+    print("3. Register Charging Kiosk")
+    print("4. Activate Charging Kiosk")
+    print("5. Make a payment (simulate QR Code Scan) or View Balance")
+    print("6. View Blockchain Ledger")
+    print("7. Run Shor's Algorithm (Quantum Simulation)")
+    print("8. Delete User")
+    print("9. Clear All Data")
+    print("10. Exit")
 
     choice = input("Enter your choice: ")
 
@@ -59,33 +54,49 @@ while True:
             print(f"User registered with VMID: {vmid}")
 
     elif choice == '3':
-        fid = input("Enter franchise ID to activate kiosk: ")
-        if fid not in grid.franchises:
-            print("Invalid franchise ID. Please try again.")
-            continue
-        activate_kiosk = charging_kiosk.ChargingKiosk(fid, grid)
-        scannable_qr = activate_kiosk.generate_qr_code()
-        print("Charging kiosk activated and QR code generated.")
-        print(f"QR Code Data: {scannable_qr}")
+        print_header("Registering Charging Kiosk")
+        kiosk_id = input("Enter a unique ID for the charging kiosk: ")
+        fid = input("Enter franchise ID to associate with this kiosk: ")
+        result = grid.register_kiosk(kiosk_id, fid)
+        print(result)
 
     elif choice == '4':
+        kiosk_id = input("Enter the ID of the kiosk to activate: ")
+        if kiosk_id not in grid.kiosks:
+            print("Invalid kiosk ID. Please register the kiosk first.")
+            continue
+        activate_kiosk = charging_kiosk.ChargingKiosk(kiosk_id, grid)
+        scannable_qr = activate_kiosk.generate_qr_code()
+        print(f"Kiosk ID: {scannable_qr['kiosk_id']}")
+        print(f"Nonce: {scannable_qr['nonce']}")
+        print(f"Ciphertext: {scannable_qr['ciphertext']}")
+
+    elif choice == '5':
         vmid = input("Enter your VMID to make a payment or view balance: ")
         action = input("Enter 1 to make a payment, 2 to view balance: ")
         if action == '1':
-            if scannable_qr is None:
+            q_kid = input("Kiosk ID from QR code: ")
+            q_nonce = input("Nonce from QR code: ")
+            q_cipher = input("Ciphertext from QR code: ")
+            temp_qr = {
+                "kiosk_id": q_kid,
+                "nonce": q_nonce,
+                "ciphertext": q_cipher
+            }
+            if temp_qr is None:
                 print("Please activate a charging kiosk first.")
                 continue
             pin = input("Enter your PIN: ")
             amount = input("Enter amount to charge (units): ")
-            result = grid.process_transaction(scannable_qr, vmid, pin, amount)
+            result = grid.process_transaction(temp_qr, vmid, pin, amount)
             print(f"Transaction result: {result}")
-            scannable_qr = None  # Invalidate QR code after one use
+            temp_qr = None  # Invalidate QR code after one use
         elif action == '2':
             grid.view_balance(vmid)
         else:
             print("Invalid action. Please try again.")
 
-    elif choice == '5':
+    elif choice == '6':
         print_header("Blockchain Ledger")
         if len(grid.blockchain_ledger) == 0:
             print("No transactions recorded yet.")
@@ -95,7 +106,7 @@ while True:
                 timestamp_str = time.ctime(timestamp) if timestamp else 'Unknown'
                 print(f"Block {idx+1}: TXID: {block.get('hash', 'N/A')}, PrevHash: {block.get('previous_hash', 'N/A')}, Dispute: {block.get('dispute_flag', 'N/A')}, Timestamp: {timestamp_str}")
 
-    elif choice == '6':
+    elif choice == '7':
         # public_key_N = int(input("Enter a composite number (public key) to factor: "))
         # public_exponent_e = 7
         # secret_pin = 123
@@ -226,15 +237,15 @@ while True:
         print(f"Decrypted PIN: {stolen_pin}")
 
 
-    elif choice == '7':
+    elif choice == '8':
         vmid = input("Enter the VMID of the user to delete: ")
         pin = input("Enter your pin: ")
         grid.delete_user(vmid, pin)
 
-    elif choice == '8':
+    elif choice == '9':
         grid.clear_data()
     
-    elif choice == '9':
+    elif choice == '10':
         print("Exiting...")
         break
 
