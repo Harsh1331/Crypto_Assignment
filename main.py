@@ -119,8 +119,7 @@ while True:
         
         public_key_N = int(input("Enter a valid RSA public key N: "))
 
-        while is_prime(public_key_N) or math.sqrt(public_key_N).is_integer():
-            public_key_N = int(input("Enter a valid RSA public key N: "))
+        public_key_N = int(input("Enter a valid RSA public key N: "))
         
         def get_input_less_than_N(prompt, N):
             while True:
