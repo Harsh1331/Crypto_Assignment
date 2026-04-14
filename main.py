@@ -8,7 +8,6 @@ def print_header(title):
     print("\n" + "="*len(title))
     print(title)
     print("="*len(title))
-
 def is_prime(n):
     if n <= 1:
         return False
@@ -25,17 +24,19 @@ scannable_qr = None
 while True:
     print("\n")
     print_header("Main Menu")
-    print("1. Register Franchise")
-    print("2. Register User")
-    print("3. Register Charging Kiosk")
-    print("4. Activate Charging Kiosk")
-    print("5. Make a payment (simulate QR Code Scan) or View Balance")
-    print("6. View Blockchain Ledger")
-    print("7. Run Shor's Algorithm (Quantum Simulation)")
-    print("8. Delete User")
-    print("9. Clear All Data")
-    print("10. Exit")
-    print("hwf. Simulate Hardware Failure")
+    print("=======================================================================")
+    print("||  1. Register Franchise                                            ||")
+    print("||  2. Register User                                                 ||")
+    print("||  3. Register Charging Kiosk                                       ||")
+    print("||  4. Generate QR Code for Charging Kiosk                           ||")
+    print("||  5. Make a payment (simulate QR Code Scan) or View Balance        ||")
+    print("||  6. View Blockchain Ledger                                        ||")
+    print("||  7. Run Shor's Algorithm (Quantum Simulation)                     ||")
+    print("||  8. Delete User                                                   ||")
+    print("||  9. Clear All Data                                                ||")
+    print("||  10. Exit                                                         ||")
+    print("||  hwf. Simulate Hardware Failure                                   ||")
+    print("=======================================================================")
 
     choice = input("Enter your choice: ")
 
@@ -115,13 +116,94 @@ while True:
                 print(f"Block {idx+1}: TXID: {block.get('hash', 'N/A')}, PrevHash: {block.get('previous_hash', 'N/A')}, Dispute: {block.get('dispute_flag', 'N/A')}, Timestamp: {timestamp_str}")
 
     elif choice == '7':
+        # public_key_N = int(input("Enter a composite number (public key) to factor: "))
+        # public_exponent_e = 7
+        # secret_pin = 123
+        # encrypted_pin = (secret_pin ** public_exponent_e) % public_key_N
+        
+        # print(f"\n[Network] Grid broadcasts RSA Public Key N={public_key_N}")
+        # print(f"[Network] User sends encrypted PIN: {encrypted_pin}")
+        # time.sleep(1)
+        
+        # attacker = quantum_sim.QuantumAttacker()
+        # cracked_p, cracked_q = attacker.shors_algorithm(public_key_N)
+        
+        # phi_N = (cracked_p - 1) * (cracked_q - 1)
+        # private_key_d = pow(public_exponent_e, -1, phi_N)
+        # stolen_pin = (encrypted_pin ** private_key_d) % public_key_N
+        
+        # print(f"\nATTACK SUCCESSFUL: Hacker decrypted the PIN: {stolen_pin}")
+
+        # print("Simulating Quantum Attack to break RSA-encrypted key exchange: ")
+        # public_key_N = int(input("Enter public key (a composite number) to exchange with the grid that will be used in further encryptions: "))
+
+        # vmid, pin = 0, 0
+
+        # try:
+        #     vmid = int(input("Enter a sample VMID to simulate an attack: "))
+        # except:
+        #     print("Enter again")
+        #     vmid = int(input("Enter a sample VMID to simulate an attack: "))
+
+        # try:
+        #     pin = int(input("Enter a sample PIN to simulate an attack: "))
+        # except:
+        #     print("Enter again")
+        #     pin = int(input("Enter a sample PIN to simulate an attack: "))
+
+        # e = 7
+
+        # encrypted_vmid = pow(vmid, e, public_key_N)
+        # encrypted_pin = pow(pin, e, public_key_N)
+
+        # print(f"\nUser sends encrypted VMID: {encrypted_vmid}")
+        # print(f"User sends encrypted PIN: {encrypted_pin}\n")
+
+
+        # attacker = quantum_sim.QuantumAttacker()
+        # cracked_p, cracked_q = attacker.shors_algorithm(public_key_N)
+
+        # phi_N = (cracked_p - 1) * (cracked_q - 1)
+
+        # d = 0
+
+        # try:
+        #     d = pow(e, -1, phi_N)
+        # except ValueError:
+        #     print(f"\nLooks like phi_N: {phi_N} is not a coprime of e: {7}")
+        #     print("So, we will choose a public key, such that this does not happen")
+        #     public_key_N = 323
+        #     print(f"Chosen public key: {public_key_N}")
+        #     encrypted_vmid = pow(vmid, e, public_key_N)
+        #     encrypted_pin = pow(pin, e, public_key_N)
+
+        #     print(f"\nUser sends encrypted VMID: {encrypted_vmid}")
+        #     print(f"User sends encrypted PIN: {encrypted_pin}")
+
+
+        #     attacker = quantum_sim.QuantumAttacker()
+        #     cracked_p, cracked_q = attacker.shors_algorithm(public_key_N)
+
+        #     phi_N = (cracked_p - 1) * (cracked_q - 1)
+
+        #     d = pow(e, -1, phi_N)
+
+        # stolen_vmid = pow(encrypted_vmid, d, public_key_N)
+        # stolen_pin = pow(encrypted_pin, d, public_key_N)
+
+        # print("\nATTACK SUCCESSFUL, Shor's algorithm decrypted your VMID and PIN")
+        # print(f"Your VMID: {stolen_vmid}")
+        # print(f"Your PIN: {stolen_pin}")
+
+        # ... (QuantumAttacker class remains the same as your updated version) ...
+
         print("--- Simulating Quantum Attack on RSA ---")
         
         public_key_N = int(input("Enter a valid RSA public key N: "))
 
-        while is_prime(public_key_N) or math.sqrt(public_key_N).is_integer():
+        while is_prime(public_key_N) or math.sqrt(public_key_N).is_integer:
             public_key_N = int(input("Enter a valid RSA public key N: "))
-        
+
         def get_input_less_than_N(prompt, N):
             while True:
                 try:
@@ -133,8 +215,8 @@ while True:
                 except ValueError:
                     print("Invalid input. Please enter a number.")
 
-        vmid = get_input_less_than_N("Enter any sample VMID: ", public_key_N)
-        pin = get_input_less_than_N("Enter any sample PIN: ", public_key_N)
+        vmid = get_input_less_than_N("Enter any sample VMID (< public key): ", public_key_N)
+        pin = get_input_less_than_N("Enter any sample PIN: (< public key)", public_key_N)
 
         e = 7
 
@@ -148,8 +230,8 @@ while True:
             public_key_N = 323
             p, q = 17, 19
             phi_N = (p - 1) * (q - 1)
-            vmid = get_input_less_than_N("Enter any sample VMID: ", public_key_N)
-            pin = get_input_less_than_N("Enter any sample PIN: ", public_key_N)
+            vmid = get_input_less_than_N("Enter any sample VMID (< public key): ", public_key_N)
+            pin = get_input_less_than_N("Enter any sample PIN (< public key): ", public_key_N)
 
         enc_vmid = pow(vmid, e, public_key_N)
         enc_pin = pow(pin, e, public_key_N)
