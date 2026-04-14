@@ -25,6 +25,9 @@ This project is a functional, centralized EV Charging Payment Gateway that mimic
 **Quantum Threat Simulation (Shor's Algorithm):**
 * Simulates Shor's Algorithm breaking classical RSA public key exchanges, actively factoring composite numbers to decrypt intercepted user credentials (VMID and PIN). 
 
+**Hardware Failure**
+* Hardware failure is simulated by taking the VMID, FID and the transaction amount that needs to be reversed as the input. This adds a block to the blockchain with the dispute flag set to True.
+
 ## File Structure
 
 * `main.py` - The interactive Command Line Interface (CLI) for demonstrating the system flow.
