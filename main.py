@@ -35,6 +35,7 @@ while True:
     print("||  8. Delete User                                                   ||")
     print("||  9. Clear All Data                                                ||")
     print("||  10. Exit                                                         ||")
+    print("||  hwf. Simulate Hardware Failure                                   ||")
     print("=======================================================================")
 
     choice = input("Enter your choice: ")
