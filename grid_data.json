@@ -4,6 +4,11 @@
             "name": "Big yahu",
             "balance": 10390.0,
             "zone": "A3"
+        },
+        "b63e878a344597da": {
+            "name": "sample",
+            "balance": 10000.0,
+            "zone": "B2"
         }
     },
     "users": {
