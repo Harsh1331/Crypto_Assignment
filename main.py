@@ -2,6 +2,7 @@ import grid_authority
 import charging_kiosk
 import quantum_sim
 import time
+import math
 
 def print_header(title):
     print("\n" + "="*len(title))
@@ -113,64 +114,116 @@ while True:
         
         # print(f"\nATTACK SUCCESSFUL: Hacker decrypted the PIN: {stolen_pin}")
 
-        print("Simulating Quantum Attack to break RSA-encrypted key exchange: ")
-        public_key_N = int(input("Enter public key (a composite number) to exchange with the grid that will be used in further encryptions: "))
+        # print("Simulating Quantum Attack to break RSA-encrypted key exchange: ")
+        # public_key_N = int(input("Enter public key (a composite number) to exchange with the grid that will be used in further encryptions: "))
 
-        vmid, pin = 0, 0
+        # vmid, pin = 0, 0
 
-        try:
-            vmid = int(input("Enter a sample VMID to simulate an attack: "))
-        except:
-            print("Enter again")
-            vmid = int(input("Enter a sample VMID to simulate an attack: "))
+        # try:
+        #     vmid = int(input("Enter a sample VMID to simulate an attack: "))
+        # except:
+        #     print("Enter again")
+        #     vmid = int(input("Enter a sample VMID to simulate an attack: "))
 
-        try:
-            pin = int(input("Enter a sample PIN to simulate an attack: "))
-        except:
-            print("Enter again")
-            pin = int(input("Enter a sample PIN to simulate an attack: "))
+        # try:
+        #     pin = int(input("Enter a sample PIN to simulate an attack: "))
+        # except:
+        #     print("Enter again")
+        #     pin = int(input("Enter a sample PIN to simulate an attack: "))
+
+        # e = 7
+
+        # encrypted_vmid = pow(vmid, e, public_key_N)
+        # encrypted_pin = pow(pin, e, public_key_N)
+
+        # print(f"\nUser sends encrypted VMID: {encrypted_vmid}")
+        # print(f"User sends encrypted PIN: {encrypted_pin}\n")
+
+
+        # attacker = quantum_sim.QuantumAttacker()
+        # cracked_p, cracked_q = attacker.shors_algorithm(public_key_N)
+
+        # phi_N = (cracked_p - 1) * (cracked_q - 1)
+
+        # d = 0
+
+        # try:
+        #     d = pow(e, -1, phi_N)
+        # except ValueError:
+        #     print(f"\nLooks like phi_N: {phi_N} is not a coprime of e: {7}")
+        #     print("So, we will choose a public key, such that this does not happen")
+        #     public_key_N = 323
+        #     print(f"Chosen public key: {public_key_N}")
+        #     encrypted_vmid = pow(vmid, e, public_key_N)
+        #     encrypted_pin = pow(pin, e, public_key_N)
+
+        #     print(f"\nUser sends encrypted VMID: {encrypted_vmid}")
+        #     print(f"User sends encrypted PIN: {encrypted_pin}")
+
+
+        #     attacker = quantum_sim.QuantumAttacker()
+        #     cracked_p, cracked_q = attacker.shors_algorithm(public_key_N)
+
+        #     phi_N = (cracked_p - 1) * (cracked_q - 1)
+
+        #     d = pow(e, -1, phi_N)
+
+        # stolen_vmid = pow(encrypted_vmid, d, public_key_N)
+        # stolen_pin = pow(encrypted_pin, d, public_key_N)
+
+        # print("\nATTACK SUCCESSFUL, Shor's algorithm decrypted your VMID and PIN")
+        # print(f"Your VMID: {stolen_vmid}")
+        # print(f"Your PIN: {stolen_pin}")
+
+        # ... (QuantumAttacker class remains the same as your updated version) ...
+
+        print("--- Simulating Quantum Attack on RSA ---")
+        
+        public_key_N = int(input("Enter a valid RSA publuc key N: "))
+
+        while not math.isprime(public_key_N):
+            public_key_N = int(input("Enter a valid RSA publuc key N: "))
+        
+        def get_input_less_than_N(prompt, N):
+            while True:
+                try:
+                    val = int(input(prompt))
+                    if val >= N:
+                        print(f"Error: Value must be less than N ({N}) for RSA logic.")
+                        continue
+                    return val
+                except ValueError:
+                    print("Invalid input. Please enter a number.")
+
+        vmid = get_input_less_than_N("Enter any sample VMID: ", public_key_N)
+        pin = get_input_less_than_N("Enter any sample PIN: ", public_key_N)
 
         e = 7
 
-        encrypted_vmid = pow(vmid, e, public_key_N)
-        encrypted_pin = pow(pin, e, public_key_N)
-
-        print(f"\nUser sends encrypted VMID: {encrypted_vmid}")
-        print(f"User sends encrypted PIN: {encrypted_pin}\n")
-
-
         attacker = quantum_sim.QuantumAttacker()
-        cracked_p, cracked_q = attacker.shors_algorithm(public_key_N)
+        p, q = attacker.shors_algorithm(public_key_N)
+        phi_N = (p - 1) * (q - 1)
 
-        phi_N = (cracked_p - 1) * (cracked_q - 1)
-
-        d = 0
-
-        try:
-            d = pow(e, -1, phi_N)
-        except ValueError:
-            print(f"\nLooks like phi_N: {phi_N} is not a coprime of e: {7}")
-            print("So, we will choose a public key, such that this does not happen")
+        if math.gcd(e, phi_N) != 1:
+            print(f"\n[!] e={e} is not coprime to phi_N={phi_N}. Attack requires a valid keypair.")
+            print("Switching to N=323 (p=17, q=19) where e=7 works...")
             public_key_N = 323
-            print(f"Chosen public key: {public_key_N}")
-            encrypted_vmid = pow(vmid, e, public_key_N)
-            encrypted_pin = pow(pin, e, public_key_N)
+            p, q = 17, 19
+            phi_N = (p - 1) * (q - 1)
+            vmid = get_input_less_than_N("Enter any sample VMID: ", public_key_N)
+            pin = get_input_less_than_N("Enter any sample PIN: ", public_key_N)
 
-            print(f"\nUser sends encrypted VMID: {encrypted_vmid}")
-            print(f"User sends encrypted PIN: {encrypted_pin}")
+        enc_vmid = pow(vmid, e, public_key_N)
+        enc_pin = pow(pin, e, public_key_N)
+        print(f"\nEncrypted Data Sent: VMID={enc_vmid}, PIN={enc_pin}")
 
+        d = pow(e, -1, phi_N)
+        stolen_vmid = pow(enc_vmid, d, public_key_N)
+        stolen_pin = pow(enc_pin, d, public_key_N)
 
-            attacker = quantum_sim.QuantumAttacker()
-            cracked_p, cracked_q = attacker.shors_algorithm(public_key_N)
-
-            phi_N = (cracked_p - 1) * (cracked_q - 1)
-
-        stolen_vmid = pow(encrypted_vmid, d, public_key_N)
-        stolen_pin = pow(encrypted_pin, d, public_key_N)
-
-        print("\nATTACK SUCCESSFUL, Shor's algorithm decrypted your VMID and PIN")
-        print(f"Your VMID: {stolen_vmid}")
-        print(f"Your PIN: {stolen_pin}")
+        print("\n--- ATTACK SUCCESSFUL ---")
+        print(f"Decrypted VMID: {stolen_vmid}")
+        print(f"Decrypted PIN: {stolen_pin}")
 
 
     elif choice == '7':
