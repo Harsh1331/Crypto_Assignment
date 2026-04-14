@@ -2,7 +2,9 @@ import grid_authority
 import charging_kiosk
 import quantum_sim
 import time
+from sympy import isprime
 import math
+import random
 
 def print_header(title):
     print("\n" + "="*len(title))
@@ -18,16 +20,18 @@ scannable_qr = None
 while True:
     print("\n")
     print_header("Main Menu")
-    print("1. Register Franchise")
-    print("2. Register User")
-    print("3. Register Charging Kiosk")
-    print("4. Activate Charging Kiosk")
-    print("5. Make a payment (simulate QR Code Scan) or View Balance")
-    print("6. View Blockchain Ledger")
-    print("7. Run Shor's Algorithm (Quantum Simulation)")
-    print("8. Delete User")
-    print("9. Clear All Data")
-    print("10. Exit")
+    print("=======================================================================")
+    print("||  1. Register Franchise                                            ||")
+    print("||  2. Register User                                                 ||")
+    print("||  3. Register Charging Kiosk                                       ||")
+    print("||  4. Generate QR Code for Charging Kiosk                           ||")
+    print("||  5. Make a payment (simulate QR Code Scan) or View Balance        ||")
+    print("||  6. View Blockchain Ledger                                        ||")
+    print("||  7. Run Shor's Algorithm (Quantum Simulation)                     ||")
+    print("||  8. Delete User                                                   ||")
+    print("||  9. Clear All Data                                                ||")
+    print("||  10. Exit                                                         ||")
+    print("=======================================================================")
 
     choice = input("Enter your choice: ")
 
@@ -190,11 +194,8 @@ while True:
 
         print("--- Simulating Quantum Attack on RSA ---")
         
-        public_key_N = int(input("Enter a valid RSA publuc key N: "))
+        public_key_N = int(input("Enter a valid RSA public key N: "))
 
-        while not math.isprime(public_key_N):
-            public_key_N = int(input("Enter a valid RSA publuc key N: "))
-        
         def get_input_less_than_N(prompt, N):
             while True:
                 try:
@@ -206,8 +207,8 @@ while True:
                 except ValueError:
                     print("Invalid input. Please enter a number.")
 
-        vmid = get_input_less_than_N("Enter any sample VMID: ", public_key_N)
-        pin = get_input_less_than_N("Enter any sample PIN: ", public_key_N)
+        vmid = get_input_less_than_N("Enter any sample VMID (< public key): ", public_key_N)
+        pin = get_input_less_than_N("Enter any sample PIN: (< public key)", public_key_N)
 
         e = 7
 
@@ -221,8 +222,8 @@ while True:
             public_key_N = 323
             p, q = 17, 19
             phi_N = (p - 1) * (q - 1)
-            vmid = get_input_less_than_N("Enter any sample VMID: ", public_key_N)
-            pin = get_input_less_than_N("Enter any sample PIN: ", public_key_N)
+            vmid = get_input_less_than_N("Enter any sample VMID (< public key): ", public_key_N)
+            pin = get_input_less_than_N("Enter any sample PIN (< public key): ", public_key_N)
 
         enc_vmid = pow(vmid, e, public_key_N)
         enc_pin = pow(pin, e, public_key_N)

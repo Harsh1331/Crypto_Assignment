@@ -2,17 +2,36 @@
     "franchises": {
         "df4c3093c65752cb": {
             "name": "Big yahu",
-            "balance": 10070.0,
+            "balance": 10090.0,
             "zone": "A3"
+        },
+        "b4fa13bd26d7b0e2": {
+            "name": "Fran1",
+            "balance": 10550.0,
+            "zone": "A2"
         }
     },
     "users": {
-        "472cb6661e5538ec": {
-            "uid": "58a3781f232f74f8",
-            "name": "nichu",
+        "e84b13fbdb537027": {
+            "uid": "261284564959647b",
+            "name": "Sailesh",
             "pin": "1234",
-            "balance": 4930.0,
-            "zone": "C2"
+            "balance": 1500.0,
+            "zone": "A2"
+        },
+        "d5dcf6ee00b2e477": {
+            "uid": "289a7289f0321be1",
+            "name": "Monkey",
+            "pin": "2006",
+            "balance": 5000.0,
+            "zone": "A2"
+        },
+        "e601da6e8d7e8931": {
+            "uid": "33afcebc9e03c0b0",
+            "name": "King Kong",
+            "pin": "5678",
+            "balance": 30.0,
+            "zone": "B1"
         }
     },
     "blockchain_ledger": [
@@ -43,6 +62,27 @@
             "timestamp": "1776110743.5306897",
             "amount": 200.0,
             "dispute_flag": true
+        },
+        {
+            "hash": "3ab54f93dfd0000e",
+            "previous_hash": "08d942ed7e6f070d",
+            "timestamp": "1776158696.9287906",
+            "amount": 500.0,
+            "dispute_flag": false
+        },
+        {
+            "hash": "b05ee7526d8000ac",
+            "previous_hash": "3ab54f93dfd0000e",
+            "timestamp": "1776158865.4144084",
+            "amount": 50.0,
+            "dispute_flag": false
+        },
+        {
+            "hash": "37f00cccc83b74be",
+            "previous_hash": "b05ee7526d8000ac",
+            "timestamp": "1776161641.6669474",
+            "amount": 20.0,
+            "dispute_flag": false
         }
     ],
     "kiosks": {
@@ -53,11 +93,18 @@
         "kiosk2": {
             "fid": "df4c3093c65752cb",
             "key": "094f554dbd6a0901ceb24bffbdc1924e"
+        },
+        "Kiosk1": {
+            "fid": "b4fa13bd26d7b0e2",
+            "key": "5819799684b4bf4b3595c453ba1d2752"
         }
     },
     "used_nonces": [
         "bc0c706749d6484182549e6e13353087",
         "77a4a6170554a17c866f59b903984034",
-        "6a3b2e4cfeca8726c1e7ee407d342031"
+        "6a3b2e4cfeca8726c1e7ee407d342031",
+        "748f932791c6f2a8487e470cbc57539f",
+        "bc0dfa943e4a1fdf0d6c20b89e4f3f08",
+        "172b0f0efb5710629ce659cd27cd5fee"
     ]
 }
