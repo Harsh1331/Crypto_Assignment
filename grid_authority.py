@@ -88,6 +88,9 @@ class GridAuthority:
         if name in [u["name"] for u in self.users.values()] and zone_code in [u["zone"] for u in self.users.values()]:
             print("User name already exists in the specified zone. Please choose a different name.")
             return None
+        if not (pin.isdigit() and len(pin) == 4):
+            print("PIN must be a 4-digit number.")
+            return None
         try:
             initial_bal = float(initial_bal)
         except ValueError:
@@ -150,8 +153,11 @@ class GridAuthority:
         nonce_hex = qr_data["nonce"]
         if nonce_hex in self.used_nonces:
             return "This QR code has already been used."
-        nonce = bytes.fromhex(qr_data["nonce"])
-        ciphertext = bytes.fromhex(qr_data["ciphertext"])
+        try:
+            nonce = bytes.fromhex(qr_data["nonce"])
+            ciphertext = bytes.fromhex(qr_data["ciphertext"])
+        except ValueError:
+            return "Invalid nonce or ciphertext format. Please enter valid hexadecimal data."
         if kiosk_id not in self.kiosks:
             return "Invalid kiosk ID/ QR code data."
         kiosk_key = bytes.fromhex(self.kiosks.get(kiosk_id, {}).get("key"))
@@ -172,7 +178,7 @@ class GridAuthority:
         except Exception:
             return "Invalid QR code data."
         
-        if time.time() - float(timestamp) > 300:
+        if time.time() - float(timestamp) > 60:
             return "QR code has expired."
         
         if vmid not in self.users:
