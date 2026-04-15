@@ -1,4 +1,5 @@
 {
+<<<<<<< HEAD
     "franchises": {
         "df4c3093c65752cb": {
             "name": "Big yahu",
@@ -99,4 +100,11 @@
         "0b6a8b3176458318778ce3097ed66926",
         "923eb7b4c16497405f89a9546587121b"
     ]
+=======
+    "franchises": {},
+    "users": {},
+    "blockchain_ledger": [],
+    "kiosks": {},
+    "used_nonces": []
+>>>>>>> c1cddadd549e4b1ce46903f26f02593a1b2b2f2d
 }

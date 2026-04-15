@@ -178,7 +178,7 @@ class GridAuthority:
         except Exception:
             return "Invalid QR code data."
         
-        if time.time() - float(timestamp) > 60:
+        if time.time() - float(timestamp) > 120: # QR code expires after 120 seconds
             return "QR code has expired."
         
         if vmid not in self.users:
