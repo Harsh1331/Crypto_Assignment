@@ -2,7 +2,7 @@
     "franchises": {
         "df4c3093c65752cb": {
             "name": "Big yahu",
-            "balance": 10390.0,
+            "balance": 10490.0,
             "zone": "A3"
         }
     },
@@ -11,7 +11,7 @@
             "uid": "58a3781f232f74f8",
             "name": "nichu",
             "pin": "1234",
-            "balance": 4710.0,
+            "balance": 4610.0,
             "zone": "C2"
         },
         "5ddf0a6ba050f23e": {
@@ -71,6 +71,13 @@
             "timestamp": "1776150930.4318001",
             "amount": 100.0,
             "dispute_flag": false
+        },
+        {
+            "hash": "3f5978d9fb60035b",
+            "previous_hash": "db3c03c87d5be9c9",
+            "timestamp": "1776162378.965114",
+            "amount": 100.0,
+            "dispute_flag": false
         }
     ],
     "kiosks": {
@@ -89,6 +96,7 @@
         "6a3b2e4cfeca8726c1e7ee407d342031",
         "bb2fe5e48bd8283cc5c67ba4b2b7a9e4",
         "06cd8d3dd450f8aba925cd441055f7da",
-        "0b6a8b3176458318778ce3097ed66926"
+        "0b6a8b3176458318778ce3097ed66926",
+        "923eb7b4c16497405f89a9546587121b"
     ]
 }
